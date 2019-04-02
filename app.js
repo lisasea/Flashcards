@@ -2,6 +2,8 @@ const express = require('express');
 
 const app = express();
 
+app.set('view engine', 'pug'); //use the app.set method to set the view engine to parameter pug 
+
 app.get('/', (req, res) => {
     res.send('<h1>I love Treehouse!</h1>');
 });
