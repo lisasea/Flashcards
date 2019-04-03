@@ -2,6 +2,15 @@ const express = require('express');
 
 const app = express();
 
+const colors = [
+    'red',
+    'orange',
+    'yellow',
+    'green',
+    'blue',
+    'purple'
+  ];
+
 app.set('view engine', 'pug'); //use the app.set method to set the view engine to parameter pug 
 
 app.get('/', (req, res) => {
@@ -14,7 +23,7 @@ app.get('/', (req, res) => {
 //});
 
 app.get('/cards', (req, res) => {
-    res.render('card', { prompt: "Whp is buried in Grant's tomb?", hint: "Think about whose tomb it is."});
+    res.render('card', { prompt: "Who is buried in Grant's tomb?", colors})
 });
 
 
