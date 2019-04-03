@@ -8,8 +8,13 @@ app.get('/', (req, res) => {
     res.render('index'); //to the pug template index.pug  No need to put .pug as set view engine to it above
 });
 
+//app.get('/cards', (req, res) => {
+//    res.locals.promp = "Who is buried in Grant's tomb?"; 
+//    res.render('card');
+//});
+
 app.get('/cards', (req, res) => {
-    res.render('card', { prompt: "Whp is buried in Grant's tomb?"});
+    res.render('card', { prompt: "Whp is buried in Grant's tomb?", hint: "Think about whose tomb it is."});
 });
 
 
