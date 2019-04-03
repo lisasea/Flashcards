@@ -5,11 +5,11 @@ const app = express();
 app.set('view engine', 'pug'); //use the app.set method to set the view engine to parameter pug 
 
 app.get('/', (req, res) => {
-    res.send('<h1>I love Treehouse!</h1>');
+    res.render('index'); //to the pug template index.pug  No need to put .pug as set view engine to it above
 });
 
-app.get('/hello', (req, res) => {
-    res.send('<h1>Hello, JavaScript Developer!</h1>');
+app.get('/cards', (req, res) => {
+    res.render('card', { prompt: "Whp is buried in Grant's tomb?"});
 });
 
 
