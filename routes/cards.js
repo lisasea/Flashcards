@@ -11,9 +11,20 @@ const { cards } = data; // eo6 equivalent to const cards = data.cards;
 });
 */
 
+router.get( '/', ( req, res ) => { //new route router.get method
+    const numberOfCards = cards.length; // calculate # of cards we have to choose from. in project 6 projects.length
+    const flashcardId = Math.floor( Math.random() * numberOfCards ); //generate a random number betwee
+    res.redirect( `/cards/${flashcardId}` ) // ?side=question  //use this query string at end to test
+});
+
 router.get('/:id', (req, res) => { //  " '/:' " - tells express to use this part of the url as a variable
     const { side } = req.query;
     const { id } = req.params;
+
+    if ( !side ) {
+        res.redirect(`/cards/${id}?side=question`);
+    }
+    const name = req.cookies.username;
     const text = cards[id][side];
     const { hint } = cards[id];
 
@@ -25,7 +36,7 @@ res.render('card', {
 });
 */
 
-    const templateData = { id, text };
+    const templateData = { id, text, name };
 
     if ( side === 'question' ) {
         templateData.hint = hint;
