@@ -1,11 +1,13 @@
 extends layout
 
 block content
-    h2 Howdy test / delete when see it works
-    h2 Welcome, student!
-    form(action='/hello', method='post')
-        label Please enter your name:
-            input(type='text', name='username')
-        button(type='submit') Submit
+    if name
+        h2 Howdy test / delete when see it works
+        h2 Welcome, #{name}!
+    else
+        form(action='/hello', method='post')
+            label Please enter your name:
+               input(type='text', name='username')
+            button(type='submit') Submit
 
 

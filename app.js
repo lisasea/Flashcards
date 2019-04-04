@@ -37,7 +37,9 @@ app.post('/hello', (req, res) => {
     console.dir(req); //printout the request object to the console
     console.dir(req.body); //printout the body property of the request object to the console
 
-    res.render('hello');
+    res.render('hello', { name: req.body.username}); //pass in the name to the render method
+    res.json(req.body);// don't get html response at all... just json string
+    //Jennifer? above "also remove the logging line?" from video what?
 })
 
 app.listen(3000, () => {
