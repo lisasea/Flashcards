@@ -1,9 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser'); //installed middleware body-parser in terminal
-//above requires body-parser
+//above requires body-parser 
+const cookieParser = require('cookie-parser'); //installed middleware body-parser in terminal
+//above requires cookie-parser 
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false})); //tell express to use the body-parser middleware passing in an object to turn off the body-parser extended option
+app.use(cookieParser()); // tell express to use the cookie-parser middleware
 
 const colors = [
     'red',
@@ -17,7 +20,8 @@ const colors = [
 app.set('view engine', 'pug'); //use the app.set method to set the view engine to parameter pug 
 
 app.get('/', (req, res) => {
-    res.render('index'); //to the pug template index.pug  No need to put .pug as set view engine to it above
+    const name = req.cookies.username;
+    res.render('index', { name }); //to the pug template index.pug  No need to put .pug as set view engine to it above
 });
 
 //app.get('/cards', (req, res) => {
@@ -26,7 +30,7 @@ app.get('/', (req, res) => {
 //});
 
 app.get('/cards', (req, res) => {
-    res.render('card', { prompt: "Who is buried in Grant's tomb?", colors})
+    res.render('card', { prompt: "Who is buried in Grant's tomb?", colors});
 });
 
 app.get('/hello', (req, res) => {
@@ -36,9 +40,10 @@ app.get('/hello', (req, res) => {
 app.post('/hello', (req, res) => {
     console.dir(req); //printout the request object to the console
     console.dir(req.body); //printout the body property of the request object to the console
-
-    res.render('hello', { name: req.body.username}); //pass in the name to the render method
-    res.json(req.body);// don't get html response at all... just json string
+    res.cookie('username', req.body.username); //sends cookie to browser after we submit the form
+    res.redirect('/')
+    //changed to above code  res.render('hello', { name: req.body.username}); //pass in the name to the render method
+    //res.json(req.body);// doesn't get html response at all... just json string
     //Jennifer? above "also remove the logging line?" from video what?
 })
 
