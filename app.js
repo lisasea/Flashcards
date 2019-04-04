@@ -20,12 +20,15 @@ const colors = [
 app.set('view engine', 'pug'); //use the app.set method to set the view engine to parameter pug 
 
 app.use((req, res, next) => { //below we modify the req object by creating it a property "message"
-    req.message = 'This message made it!'; //create a property called message and pass in the string 'Thos message...""
-    next(); //function think of as next step on the conveyer belt
+ //   req.message = 'This message made it!'; //create a property called message and pass in the string 'Thos message...""
+    console.log("Hello");
+    const err = new Error('Oh noes!');
+    next(err); //function think of as next step on the conveyer belt
 });
 
 app.use((req, res, next) => {
-    console.log('req.message'); //this message is passed from the above function to this
+//    console.log('req.message'); //this message is passed from the above function to this
+    console.log('world');
     next(); //function think of as next step on the conveyer belt
 });
 
@@ -73,6 +76,20 @@ app.post('/goodbye', (req, res) => {
     res.clearCookie('username');
     res.redirect('/hello');
 });
+
+app.use((req, res, next) => {
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+}
+
+app.use((err, req, res, next) => { //error handler
+    res.locals.error = err;
+    res.status(err.status); //read status property we just set
+    res.render('error');
+});
+
 
 app.listen(3000, () => {
     console.log('The application is running on localhost:3000!')
