@@ -21,7 +21,11 @@ app.set('view engine', 'pug'); //use the app.set method to set the view engine t
 
 app.get('/', (req, res) => {
     const name = req.cookies.username;
-    res.render('index', { name }); //to the pug template index.pug  No need to put .pug as set view engine to it above
+    if (name) {
+        res.render('index', { name }); //to the pug template index.pug  No need to put .pug as set view engine to it above
+    } else {
+        res.redirect('/hello'); //redirect to the pug template hello.pug page if there is no name
+    }
 });
 
 //app.get('/cards', (req, res) => {
@@ -34,8 +38,13 @@ app.get('/cards', (req, res) => {
 });
 
 app.get('/hello', (req, res) => {
-    res.render('hello');
-})
+    const name = req.cookies.username;
+    if (name) {
+        res.redirect('/');
+    } else {
+        res.render('hello');
+    }
+});
 
 app.post('/hello', (req, res) => {
     console.dir(req); //printout the request object to the console
@@ -45,7 +54,12 @@ app.post('/hello', (req, res) => {
     //changed to above code  res.render('hello', { name: req.body.username}); //pass in the name to the render method
     //res.json(req.body);// doesn't get html response at all... just json string
     //Jennifer? above "also remove the logging line?" from video what?
-})
+});
+
+app.post('/goodbye', (req, res) => {
+    res.clearCookie('username');
+    res.redirect('/hello');
+});
 
 app.listen(3000, () => {
     console.log('The application is running on localhost:3000!')
