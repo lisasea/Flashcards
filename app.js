@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser'); //installed middleware body-parse
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false})); //tell express to use the body-parser middleware passing in an object to turn off the body-parser extended option
 app.use(cookieParser()); // tell express to use the cookie-parser middleware
+app.use('/static', express.static('public')); // tell express to use the static middleware
 
 const colors = [ //may need to be moved to index.js?
     'red',

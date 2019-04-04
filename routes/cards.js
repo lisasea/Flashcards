@@ -22,7 +22,7 @@ router.get('/:id', (req, res) => { //  " '/:' " - tells express to use this part
     const { id } = req.params;
 
     if ( !side ) {
-        res.redirect(`/cards/${id}?side=question`);
+        return res.redirect(`/cards/${id}?side=question`);
     }
     const name = req.cookies.username;
     const text = cards[id][side];
