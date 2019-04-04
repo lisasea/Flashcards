@@ -19,6 +19,19 @@ const colors = [
 
 app.set('view engine', 'pug'); //use the app.set method to set the view engine to parameter pug 
 
+app.use((req, res, next) => { //below we modify the req object by creating it a property "message"
+    req.message = 'This message made it!'; //create a property called message and pass in the string 'Thos message...""
+    next(); //function think of as next step on the conveyer belt
+});
+
+app.use((req, res, next) => {
+    console.log('req.message'); //this message is passed from the above function to this
+    next(); //function think of as next step on the conveyer belt
+});
+
+
+
+
 app.get('/', (req, res) => {
     const name = req.cookies.username;
     if (name) {
