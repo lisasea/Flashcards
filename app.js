@@ -1,6 +1,9 @@
 const express = require('express');
+const bodyParser = require('body-parser'); //installed middleware body-parser in terminal
+//above requires body-parser
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false})); //tell express to use the body-parser middleware passing in an object to turn off the body-parser extended option
 
 const colors = [
     'red',
@@ -31,6 +34,9 @@ app.get('/hello', (req, res) => {
 })
 
 app.post('/hello', (req, res) => {
+    console.dir(req); //printout the request object to the console
+    console.dir(req.body); //printout the body property of the request object to the console
+
     res.render('hello');
 })
 
